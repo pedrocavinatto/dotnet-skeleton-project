@@ -1,0 +1,23 @@
+{{- if eq .Values.ingress.enabled true }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+  name: {{ .Release.Name }}-ingress
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ include "dotnet-chart.fullname" . }}
+            port:
+              number: {{ .Values.service.port }}
+        path: {{ .Values.ingress.path }}
+        pathType: {{ .Values.ingress.pathType }}
+{{- end }}
