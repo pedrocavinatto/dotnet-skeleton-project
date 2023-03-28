@@ -30,6 +30,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["dotnet"]
+          args: ["{{ .Values.solutionName }}.dll"]
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

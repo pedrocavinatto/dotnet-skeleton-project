@@ -1,5 +1,7 @@
 replicaCount: 1
 
+solutionName: webapi #Replace it
+
 image:
   repository: your-registry/dotnet-image #Replace it
   pullPolicy: Always

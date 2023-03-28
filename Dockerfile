@@ -1,9 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /App
 
-#Define the solution name with --build-arg
-ARG SOLUTION_NAME=DotNet.Docker
-
 # Copy everything
 COPY . ./
 # Restore as distinct layers
@@ -15,4 +12,6 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /App
 COPY --from=build-env /App/out .
-ENTRYPOINT ["dotnet", $SOLUTION_NAME + ".dll"]
+
+#Now the entrypoint will be defined inside the deployment manifest in the Helm chart
+#ENTRYPOINT ["dotnet", "webapi.dll" ]
