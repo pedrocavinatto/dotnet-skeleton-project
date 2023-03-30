@@ -35,6 +35,10 @@ ingress:
   ingressClassName: nginx
   annotations: 
     nginx.ingress.kubernetes.io/rewrite-target: /
+  tls:
+    enabled: false
+    hosts: []
+    secretName: ""
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   {{- with .Values.ingress.annotations }}
   annotations:
-    {{- toYaml . | nindent 8 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   name: {{ .Release.Name }}-ingress
 spec:
@@ -20,4 +20,12 @@ spec:
               number: {{ .Values.service.port }}
         path: {{ .Values.ingress.path }}
         pathType: {{ .Values.ingress.pathType }}
+  {{- if eq .Values.ingress.tls.enabled true }}
+  tls:
+  - secretName: {{ .Values.ingress.tls.secretName }}
+    {{- with .Values.ingress.tls.hosts }}
+    hosts:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  {{- end }}
 {{- end }}
