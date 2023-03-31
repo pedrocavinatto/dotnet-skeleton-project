@@ -33,6 +33,7 @@ ingress:
   path: /
   pathType: Prefix
   ingressClassName: nginx
+  clusterIssuer: {}
   annotations: 
     nginx.ingress.kubernetes.io/rewrite-target: /
   tls:
