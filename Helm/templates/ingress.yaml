@@ -28,7 +28,7 @@ spec:
   {{- if eq .Values.ingress.tls.enabled true }}
   tls:
   - secretName: {{ .Values.ingress.tls.secretName }}
-    hosts: |-
+    hosts:
     {{- range .Values.ingress.tls.hosts }}
     - {{- toYaml . | nindent 6 }}
     {{- end }}
